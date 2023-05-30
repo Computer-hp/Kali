@@ -1,0 +1,6 @@
+burpsuite --> apt install burpsuite  x
+Zenmap  x
+metasploit framework  x
+maltego  x
+kismet  --> wants a kernel update
+fern wifi cracker --> wants a kernel update
