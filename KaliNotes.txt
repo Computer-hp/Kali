@@ -1,0 +1,171 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------
+locate
+
+updatedb
+
+passwd
+
+man: manual of a command, example --> man ls
+------------------------------------------------------------------------------------------------------------------------------------------------------
+overview:
+
+chmod:
+
+adduser:
+
+/etc/passwd:
+
+/etc/shadow:
+
+su:
+
+sudo:
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+ifconfig:
+
+iwconfig:
+
+ping: example ping 192.168.1.90 --> it's endless
+      if you want to ping a single packet you have to write:
+
+      ping 192.168.1.90 -c 1
+
+arp:
+
+netstat:
+
+route:
+------------------------------------------------------------------------------------------------------------------------------------------------------
+echo: output message, example --> echo Ciao ....> Ciao
+
+cat: read the content of a file (cat > writes/overwrites the content, cat >> concatenates/appends)
+     example ---> cat "Hello" > temp.txt ---> cat "Bye" >> temp.txt    finale output: Hello
+                                                                                  Bye
+
+touch
+
+nano: text editor in terminal
+
+gedit: text editor
+------------------------------------------------------------------------------------------------------------------------------------------------------
+services:
+// this procedure puts the folder online and keeps it while the machine is // running. When we reboot the machine, apache2 stops working
+ifconfig
+copy the inet: ....
+paste to browser
+than write:
+service apache2 start
+            it alouds to enter in apache2
+// another way to spin up a web server:
+echo "hello" > hello.textservice apache2 start
+python -m http.server 8080
+// in python versions older then the 3 you have to use SimpleHTTPServer
+        (for module)        (for the port)
+service apache2 stop
+
+// exercise: Spin up an FTP server with python
+
+
+systemctl:
+// to keep things online all the time we can use systemctl
+systemctl enable/disable
+
+// example
+systemctl enable/disable ssh
+
+// to have a database
+systemctl enable postgresql
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+grep:
+            (or 192.168.1.1)
+        ping 192.168.1.90 -c 1 > ip.txt
+        cat ip.txt --> to see the content
+        // if you want to extract the ip you have to
+        cat ip.txt | grep "64 bytes"    (grep a pipe?)
+        // grep takes only the lines with 64 bytes
+
+
+cut:
+        // if you want to extract the ip you have to
+        cat ip.txt | grep "64 bytes" | cut -d " " -f 4
+        // -d is a delimeter, what we are going to cut on
+        // (the space " ")
+        // -f is a field, what field we want to obtain with the cut
+        // (field 4, where is the ip adress)
+
+
+tr:cat ip.txt | grep "64 bytes" | cut -d " " -f 4
+        // to remove the : of the ping (example: 192.168.1.1:)
+        // you have to use tr:
+        cat i/bin/bash
+// for this ip (int variable) from 1 to 254
+for ip in seq 1 254 ; do
+// $1 is the user input
+// $ip is simply the ip that we get from user input
+// we can also write manualy the ip adress
+// 192.168.1.$ip
+ping -c 1 $1.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" &
+                                // in place of & we can also use ;
+donep.txt | grep "64 bytes" | cut -d " " -f 4 | tr -d ":"
+
+
+script writing:
+        // gedit ipsweep.sh
+        // to write codes in gedit you have to write:
+        #!/bin/bash
+# comments are written like this
+
+/bin/bash
+// for this ip (int variable) from 1 to 254
+for ip in seq {1..254} ; do // ";" to interrupt, if you don't want to
+                            // use ";" you just put the "do" under
+                            // the "for"
+// $1 is the user input
+// $ip is simply the ip that we get from user input
+// we can also write manualy the ip adress
+// 192.168.1.$ip
+ping -c 1 $1.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" &
+                                // in place of & we can also use ;
+done
+
+// when we call ./ipsweep.sh
+and then we will have to request informations
+./ipsweep.sh 192.168.1
+
+save and exit from gedit
+chmod +x ipsweep.sh //because it's not executable by default
+
+// to improve the script:
+
+#!/bin/bash
+# one = in if
+if [ "$1" = " " ]
+then
+echo "You have to enter an IP adress!"
+echo "Syntax: ./ipsweep.sh <IP adress>"
+
+else
+for ip in seq {1..254}; do
+ping -c 1 $1.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" &
+done
+fi
+
+
+
+
+for loops:
+nmap:
+// you can do loops in one line
+for ip in $(cat iplist.txt); do nmap -sS -p 80 -T4 $ip & done
+// $ip to declare the ip
+// or "&" in place of ";" to run multiple times
+// -sS , -T4 is for the speed
+
+# to use the sudo in the for loop:
+# you have to write it between "do" and "done"!
+for ip in $(cat iplist.txt); do sudo nmap -sS -p 80 -T4 $ip & done
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
